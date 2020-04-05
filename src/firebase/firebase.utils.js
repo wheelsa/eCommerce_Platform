@@ -2,68 +2,72 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-
 const config = {
-  apiKey: "AIzaSyABxY0B8Da-X72SdFJcuBDpL4H_-pBzD8I",
-  authDomain: "ecommerce-a576d.firebaseapp.com",
-  databaseURL: "https://ecommerce-a576d.firebaseio.com",
-  projectId: "ecommerce-a576d",
-  storageBucket: "ecommerce-a576d.appspot.com",
-  messagingSenderId: "825707936660",
-  appId: "1:825707936660:web:0c91aac5afb2a078742d81"
+  apiKey: 'AIzaSyCdHT-AYHXjF7wOrfAchX4PIm3cSj5tn14',
+  authDomain: 'crwn-db.firebaseapp.com',
+  databaseURL: 'https://crwn-db.firebaseio.com',
+  projectId: 'crwn-db',
+  storageBucket: 'crwn-db.appspot.com',
+  messagingSenderId: '850995411664',
+  appId: '1:850995411664:web:7ddc01d597846f65'
 };
 
-export const createUserProfileDocument =  async (userAuth, additionalData) => {
-  if (!userAuth){return};
-  
+firebase.initializeApp(config);
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
-  if(!snapShot.exists){
+  if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
-    
-    try{
+    try {
       await userRef.set({
         displayName,
         email,
         createdAt,
         ...additionalData
-      })
-    }catch(error){
+      });
+    } catch (error) {
       console.log('error creating user', error.message);
-    }}
-    return userRef;
-  };
-  
-firebase.initializeApp(config);
+    }
+  }
 
+  return userRef;
+};
 
-export const addCollectionAndDocuments = async ( collectionKey, objectsToAdd ) => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
   const collectionRef = firestore.collection(collectionKey);
-  console.log(collectionRef);
 
   const batch = firestore.batch();
-  objectsToAdd.forEach( obj => {
+  objectsToAdd.forEach(obj => {
     const newDocRef = collectionRef.doc();
-      batch.set(newDocRef, obj)
+    batch.set(newDocRef, obj);
   });
-  return await batch.commit();
-}; //used this to upload shop data to firebase
 
-export const convertCollectionsSnapshotToMap = (collections) => {
-  const transformedCollection = collections.docs.map( doc => {
+  return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
     const { title, items } = doc.data();
+
     return {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
       items
-    }
-  })
+    };
+  });
+
   return transformedCollection.reduce((accumulator, collection) => {
-    accumulator[collections.title.toLowerCase()] = collection;
+    accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {});
 };
