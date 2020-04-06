@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans Condensed';
+  font-family: "Open Sans Condensed";
   padding: 20px 60px;
 }
 a {
@@ -7,6 +7,6 @@ a {
   color: black;
 }
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
