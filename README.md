@@ -14,5 +14,7 @@ This ReadMe is here to summarize the my eCommerce Platform. The purpose of this 
 
 ### Some Additional Notes:
 
-  * https://ecommerce-vor.herokuapp.com/
+  * Site can be found live at http://www.sethawheeler.com/.
+  
+  * Deployed using Express.js for the backend.
 
