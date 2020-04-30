@@ -1,6 +1,6 @@
 # eCommerce Platform
 
-This ReadMe is here to summarize the my eCommerce Platform. The purpose of this application is to provide a seemless shopping experience with an iteractive design and the ability to easily process payment.
+This ReadMe is here to summarize the my eCommerce Platform. The purpose of this application is to provide a seamless shopping experience with an interactive design and the ability to easily process payment.
 
 ## What you can expect from this app:
 
